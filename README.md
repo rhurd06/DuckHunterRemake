@@ -16,10 +16,10 @@ We are recreating a childhood favorite game: Duck Hunter. The most basic concept
 ## Deployment
 
 ## Technologies Used:
-i. HTML
-i. CSS
-i. Node.js
-i. Express
+- HTML
+- CSS
+- Node.js
+- Express
 
 ## Acknowledgements
 We'd like to thank Mintbean for providing this opportunity through their Hiring Hackathon and challenging us to create a game. We'd also like to thank our friends and family for their continuous support and encouragement.
