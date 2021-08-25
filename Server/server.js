@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(bodyParser.urlEncoded({ extend: true }))
+app.use(bodyParser.urlencoded({ extend: true }))
 
-app.use(express.static('build'))
+app.use(express.static('public'))
 
 const PORT = process.env.PORT || 5000;
 
