@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "phaser": "^3.55.2",
+    "react": "^17.0.2"
   },
   "name": "duckhunterremake",
   "description": "## Description Duration: 1 week sprint",
