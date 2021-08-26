@@ -20,6 +20,7 @@ We are recreating a childhood favorite game: Duck Hunter. The most basic concept
 - CSS
 - Node.js
 - Express
+- Phaser
 
 ## Acknowledgements
 We'd like to thank Mintbean for providing this opportunity through their Hiring Hackathon and challenging us to create a game. We'd also like to thank our friends and family for their continuous support and encouragement.
