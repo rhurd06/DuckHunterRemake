@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-
+const gameState = {};
 class Game extends Phaser.Scene {
   constructor() {
     super('scene')
@@ -17,9 +17,19 @@ class Game extends Phaser.Scene {
 
   create() {
     this.add.image(500, 350, 'sky');
-    this.add.sprite(100, 100, 'duck');
+    gameState.duck = this.add.sprite(100, 100, 'duck').setScale(3);
+    this.anims.create({
+      key: 'fly',
+      frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }), 
+      frameRate: 10, 
+      repeat: -1
+    })
     // this.add.sprite(200, 100, 'duck2').setScale(.2);
     this.add.image(400, 400, 'grass');
+  }
+
+  update() {
+    gameState.duck.anims.play('fly', true);
   }
 }
 
