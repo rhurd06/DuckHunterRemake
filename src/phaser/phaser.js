@@ -1,40 +1,41 @@
-import phaser from "phaser";
-import logo from "../assets/logo.png";
-import sky2 from '../assets/sky2.jpeg';
-import duckHuntBird from '../assets/duckHuntBird.png';
+import Phaser from "phaser";
 
-  // constructor() {
-  //   super('scene')
-  // };
 
-  function preload() {
-    this.load.image('sky', sky2);
-    this.load.spritesheet('duck', '../assets/duckspritesheet.png',
-      { frameWidth: 500, frameHeight: 700 });
-    this.load.image('duck2', duckHuntBird)
+class Game extends Phaser.Scene {
+  constructor() {
+    super('scene')
   }
 
-  function create() {
-    this.add.image(500, 700, 'sky').setOrigin(0, 0);
+
+  preload() {
+    this.load.image('sky', 'assets/sky2.jpeg');
+    this.load.spritesheet('duck', 'assets/duckspritesheet.png', { frameWidth: 32, frameHeight: 32 });
+    // this.load.image('duck2', duckHuntBird)
+  }
+
+  create() {
+    this.add.image(500, 350, 'sky');
     this.add.sprite(100, 100, 'duck');
-    this.add.sprite(200, 100, 'duck2').setScale(.2);
+    // this.add.sprite(200, 100, 'duck2').setScale(.2);
   }
-
+}
 
 var config = {
-  type: phaser.AUTO,
+  type: Phaser.AUTO,
+  parent: 'phaser-example',
   backgroundColor: "#8FD9F6",
   width: 800,
   height: 600,
-  scene: {
-    preload,
-    create
-  }
+  scene: Game
+  // scene: {
+  //   preload,
+  //   create
+  // }
 };
 
 
 
-const game = new phaser.Game(config);
+const game = new Phaser.Game(config);
 
 
 // function preload() {
