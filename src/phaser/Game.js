@@ -12,7 +12,7 @@ export default class Game extends phaser.Scene{
   }
 
   create() {
-    this.add.image(0, 0, 'sky')
+    this.add.image(0, 0, 'sky').setOrigin(0, 0);
   }
 
 
