@@ -12,24 +12,49 @@ class Game extends Phaser.Scene {
     this.load.image('grass', 'assets/grassbg.png');
     this.load.spritesheet('duck', 'assets/duckspritesheet.png', 
       { frameWidth: 32, frameHeight: 32 });
-    // this.load.image('duck2', duckHuntBird)
   }
 
   create() {
     this.add.image(500, 350, 'sky');
-    gameState.duck = this.add.sprite(100, 100, 'duck').setScale(3);
+    // gameState.duck = this.add.sprite(100, 100, 'duck').setScale(3);
+    
+    gameState.duck = this.physics.add.group();
+
+    function duckGen() {
+      const xCoord = Math.random() * 800;
+      gameState.duck.create(xCoord, 400, 'duck');
+    }
+
+    const duckGenLoop = this.time.addEvent({
+      delay: 100, 
+      callback: duckGen,
+      callbackScope: this,
+
+      loop: true
+    }) 
+
     this.anims.create({
       key: 'fly',
       frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }), 
       frameRate: 10, 
-      repeat: -1
+      repeat: -1,
+      yoyo: true
     })
-    // this.add.sprite(200, 100, 'duck2').setScale(.2);
+    
     this.add.image(400, 400, 'grass');
+    
+    gameState.duck.move = this.tweens.add({
+      targets: gameState.duck,
+      x: 100,
+      ease: 'Linear',
+      duration: 1800,
+      repeat: -1,
+      yoyo: true
+    })
   }
-
+  
   update() {
-    gameState.duck.anims.play('fly', true);
+    // gameState.duck.anims.play('fly', true);
   }
 }
 
@@ -39,7 +64,15 @@ var config = {
   backgroundColor: "#8FD9F6",
   width: 800,
   height: 600,
-  scene: Game
+  scene: Game,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: -1800 },
+      enableBody: true,
+    }
+    
+  }
   // scene: {
   //   preload,
   //   create
