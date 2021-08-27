@@ -9,7 +9,9 @@ class Game extends Phaser.Scene {
 
   preload() {
     this.load.image('sky', 'assets/sky2.jpeg');
-    this.load.spritesheet('duck', 'assets/duckspritesheet.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.image('grass', 'assets/grassbg.png');
+    this.load.spritesheet('duck', 'assets/duckspritesheet.png', 
+      { frameWidth: 32, frameHeight: 32 });
     // this.load.image('duck2', duckHuntBird)
   }
 
@@ -23,6 +25,7 @@ class Game extends Phaser.Scene {
       repeat: -1
     })
     // this.add.sprite(200, 100, 'duck2').setScale(.2);
+    this.add.image(400, 400, 'grass');
   }
 
   update() {
