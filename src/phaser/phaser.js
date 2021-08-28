@@ -54,7 +54,7 @@ class Game extends Phaser.Scene {
   }
   
   update() {
-    // gameState.duck.anims.play('fly', true);
+    gameState.duck.setVelocityY(-100);
   }
 }
 
