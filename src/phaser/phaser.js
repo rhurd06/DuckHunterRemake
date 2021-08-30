@@ -88,6 +88,7 @@ class Game extends Phaser.Scene {
       
       for (let i = 0; i < gameState.children.length; i++) {
         gameState.children[i].setInteractive();
+        gameState.children[i].anims.play('fly', true);
         if (gameState.children[i].y < -128 || gameState.children[i].x > 928 || gameState.children.x < -128) {
           console.log('hello');
           gameState.children[i].destroy();
