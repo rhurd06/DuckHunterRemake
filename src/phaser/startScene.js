@@ -19,11 +19,11 @@ export default class StartScene extends Phaser.Scene {
         this.scene.start('scene')
     })
 
-    this.add.text(100, 200, 'Meet the Engineers:', {fill: '#000000', fontSize: '25px'})
+    this.add.text(100, 250, 'Meet the Engineers:', {fill: '#000000', fontSize: '25px'})
     const style1 = {fontSize: '15px', fontFamily: 'Arial', fill: '#000000', align: 'left', wordWrap: {width: 200}}
-    this.add.image(250, 300, 'Robyn').setScale(.05);
-    this.add.text(180, 350, 'Robyn is a retail manager turned Full Stack Developer who loves to tackle challenges and learn new programs', style1)
-    this.add.image(450, 300, 'John').setScale(.3);
+    this.add.image(250, 325, 'Robyn').setScale(.05);
+    this.add.text(180, 375, 'Robyn is a retail manager turned Full Stack Developer who loves to tackle challenges and learn new programs', style1)
+    this.add.image(450, 325, 'John').setScale(.3);
 
   }
 }
