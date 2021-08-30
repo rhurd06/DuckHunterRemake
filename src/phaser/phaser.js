@@ -87,7 +87,7 @@ class Game extends Phaser.Scene {
       
       for (let i = 0; i < gameState.children.length; i++) {
         gameState.children[i].setInteractive();
-        if (gameState.children[i].y < -128) {
+        if (gameState.children[i].y < -128 || gameState.children[i].x > 928 || gameState.children.x < -128) {
           console.log('hello');
           gameState.children[i].destroy();
           gameState.missedDucks -= 1;
@@ -104,7 +104,7 @@ class Game extends Phaser.Scene {
     // } else {
     //   gameState.duck.velX = -100;
     // }
-    gameState.duck.setVelocityY(-100);
+    gameState.duck.setVelocity(100, -100);
     // if ( gameState.duck.velX = -100 ){
     //   gameState.duck.flipX = true;
     // }
