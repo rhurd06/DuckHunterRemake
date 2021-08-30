@@ -12,7 +12,6 @@ class Game extends Phaser.Scene {
     super('scene')
   }
 
-
   preload() {
     this.load.image('sky', 'assets/sky2.jpeg');
     this.load.image('grass', 'assets/grassbg.png');
@@ -23,8 +22,9 @@ class Game extends Phaser.Scene {
 
   create() {
     gameState.shot = this.sound.add('shot');
+    // gameState.active = true;
+
     this.add.image(500, 350, 'sky');
-    // gameState.duck = this.add.sprite(Math.random() * 800, 'duck').setScale(3);
 
     gameState.duck = this.physics.add.group({
       key: 'duck',
@@ -51,30 +51,19 @@ class Game extends Phaser.Scene {
       loop: true
     })
 
-
-
-
     this.add.image(400, 400, 'grass');
 
-    gameState.scoreText = this.add.text(350, 550, "Score: 0, Health: 5", { fontSize: '25px', fill: '#ffffff' });
+    gameState.scoreText = this.add.text(350, 550, "Score: 0, Missed Ducks: 5", { fontSize: '25px', fill: '#ffffff' });
 
     this.input.on('gameobjectdown', function (pointer, gameObject) {
       gameState.shot.play();
       gameObject.destroy();
       gameState.score += 1;
-      gameState.scoreText.setText(`Score: ${gameState.score}, Health: ${gameState.missedDucks}`);
+      gameState.scoreText.setText(`Score: ${gameState.score}, Missed Ducks: ${gameState.missedDucks}`);
+      console.log('click', gameObject)
       gameState.onScreen -= 1;
     })
     
-    
-    // gameState.duck.move = this.tweens.add({
-      //   targets: gameState.duck,
-      //   x: 100,
-      //   ease: 'Linear',
-      //   duration: 1800,
-      //   repeat: -1,
-      //   yoyo: true
-      // })
       this.anims.create({
         key: 'fly',
         frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }),
@@ -107,27 +96,29 @@ class Game extends Phaser.Scene {
           gameState.children[i].x += 2;
         } else if (gameState.children[i].direction === 'flyLeft') {
           gameState.children[i].x -= 2;
+          gameState.children[i].flipX = true;
         } 
         if (gameState.children[i].y < -128 || gameState.children[i].x > 928 || gameState.children.x < -128) {
           gameState.children[i].destroy();
           gameState.missedDucks -= 1;
           gameState.onScreen -=1;
-          gameState.scoreText.setText(`Score: ${gameState.score}, Health: ${gameState.missedDucks}`);
+            if(gameState.missedDucks === 0) {
+              this.scene.pause();
+              gameState.active = false;
+              this.anims.pauseAll();
+              this.add.text(300, 200, 'Game Over \n Click to play again', {fontSize: '40px', fontStyle: 'bold', fontFamily: 'Arial', align: 'center', fill: '#000000'})
+              this.input.on('pointerup', () => {
+                this.anims.resumeAll();
+                this.scene.start('scene');
+              })
+            }
+          gameState.scoreText.setText(`Score: ${gameState.score}, Missed Ducks: ${gameState.missedDucks}`);
+
         }
+        
     }
 
-
-    // gameState.duck.anims.play('fly', true);
-    // if (gameState.duck.xCoord < 400) {
-    //   gameState.duck.velX = 100;
-
-    // } else {
-    //   gameState.duck.velX = -100;
-    // }
     gameState.duck.setVelocity(0, -100);
-    // if ( gameState.duck.velX = -100 ){
-    //   gameState.duck.flipX = true;
-    // }
 
   }
 }
