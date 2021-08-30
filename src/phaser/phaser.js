@@ -17,9 +17,11 @@ class Game extends Phaser.Scene {
     this.load.image('grass', 'assets/grassbg.png');
     this.load.spritesheet('duck', 'assets/duckspritesheet2.png',
       { frameWidth: 128, frameHeight: 128 });
+    this.load.audio('shot', 'assets/sounds/shot2.wav')
   }
 
   create() {
+    gameState.shot = this.sound.add('shot');
     // gameState.active = true;
 
     this.add.image(500, 350, 'sky');
@@ -54,6 +56,7 @@ class Game extends Phaser.Scene {
     gameState.scoreText = this.add.text(350, 550, "Score: 0, Missed Ducks: 5", { fontSize: '25px', fill: '#ffffff' });
 
     this.input.on('gameobjectdown', function (pointer, gameObject) {
+      gameState.shot.play();
       gameObject.destroy();
       gameState.score += 1;
       gameState.scoreText.setText(`Score: ${gameState.score}, Missed Ducks: ${gameState.missedDucks}`);
@@ -68,10 +71,15 @@ class Game extends Phaser.Scene {
         repeat: -1,
         yoyo: true
       })
+      
+      this.input.on('pointerdown', function() {
+        gameState.shot.play()
+        console.log('click');
+      })
     }
     
     update() {
-      
+
       gameState.children = gameState.duck.getChildren()
       
       for (let i = 0; i < gameState.children.length; i++) {
@@ -91,7 +99,6 @@ class Game extends Phaser.Scene {
           gameState.children[i].flipX = true;
         } 
         if (gameState.children[i].y < -128 || gameState.children[i].x > 928 || gameState.children.x < -128) {
-          console.log('hello');
           gameState.children[i].destroy();
           gameState.missedDucks -= 1;
           gameState.onScreen -=1;
