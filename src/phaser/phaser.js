@@ -20,6 +20,8 @@ class Game extends Phaser.Scene {
   }
 
   create() {
+    // gameState.active = true;
+
     this.add.image(500, 350, 'sky');
 
     gameState.duck = this.physics.add.group({
@@ -49,12 +51,12 @@ class Game extends Phaser.Scene {
 
     this.add.image(400, 400, 'grass');
 
-    gameState.scoreText = this.add.text(350, 550, "Score: 0, Health: 5", { fontSize: '25px', fill: '#ffffff' });
+    gameState.scoreText = this.add.text(350, 550, "Score: 0, Missed Ducks: 5", { fontSize: '25px', fill: '#ffffff' });
 
     this.input.on('gameobjectdown', function (pointer, gameObject) {
       gameObject.destroy();
       gameState.score += 1;
-      gameState.scoreText.setText(`Score: ${gameState.score}, Health: ${gameState.missedDucks}`);
+      gameState.scoreText.setText(`Score: ${gameState.score}, Missed Ducks: ${gameState.missedDucks}`);
       console.log('click', gameObject)
       gameState.onScreen -= 1;
     })
@@ -93,8 +95,20 @@ class Game extends Phaser.Scene {
           gameState.children[i].destroy();
           gameState.missedDucks -= 1;
           gameState.onScreen -=1;
-          gameState.scoreText.setText(`Score: ${gameState.score}, Health: ${gameState.missedDucks}`);
+            if(gameState.missedDucks === 0) {
+              this.scene.pause();
+              gameState.active = false;
+              this.anims.pauseAll();
+              this.add.text(300, 200, 'Game Over \n Click to play again', {fontSize: '40px', fontStyle: 'bold', fontFamily: 'Arial', align: 'center', fill: '#000000'})
+              this.input.on('pointerup', () => {
+                this.anims.resumeAll();
+                this.scene.start('scene');
+              })
+            }
+          gameState.scoreText.setText(`Score: ${gameState.score}, Missed Ducks: ${gameState.missedDucks}`);
+
         }
+        
     }
 
     gameState.duck.setVelocity(0, -100);
