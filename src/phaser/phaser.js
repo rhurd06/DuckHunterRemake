@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 
-const gameState = {};
+const gameState = {
+  score: 0
+};
 class Game extends Phaser.Scene {
   constructor() {
     super('scene')
@@ -49,40 +51,46 @@ class Game extends Phaser.Scene {
       yoyo: true
     })
 
-    
+
     this.add.image(400, 400, 'grass');
-    
+
+    gameState.scoreText = this.add.text(350, 550, "Score: 0", { fontSize: '25px', fill: '#ffffff' });
+
     // gameState.duck.anims.play('fly', true);
-      this.input.on('gameobjectdown', function(pointer, gameObject) {
-        gameObject.destroy();
-        console.log('click', gameObject)
-      })
-      
-      gameState.duck.move = this.tweens.add({
-        targets: gameState.duck,
-        x: 100,
-        ease: 'Linear',
-        duration: 1800,
-        repeat: -1,
-        yoyo: true
-      })
+    this.input.on('gameobjectdown', function (pointer, gameObject) {
+      gameObject.destroy();
+      gameState.score += 1;
+      gameState.scoreText.setText(`Score: ${gameState.score}`);
+      console.log('click', gameObject)
+    })
+
+
+    // gameState.duck.move = this.tweens.add({
+    //   targets: gameState.duck,
+    //   x: 100,
+    //   ease: 'Linear',
+    //   duration: 1800,
+    //   repeat: -1,
+    //   yoyo: true
+    // })
+  }
+
+  update() {
+    gameState.children = gameState.duck.getChildren()
+    for (let i = 0; i < gameState.children.length; i++) {
+      gameState.children[i].setInteractive();
     }
-    
-    update() {
-      gameState.children = gameState.duck.getChildren()
-      for (let i = 0; i < gameState.children.length; i++) {
-        gameState.children[i].setInteractive();
-      }
-      // if (gameState.duck.xCoord < 400) {
-        //   gameState.duck.velX = 100;
-        
-        // } else {
-          //   gameState.duck.velX = -100;
-          // }
+    // if (gameState.duck.xCoord < 400) {
+    //   gameState.duck.velX = 100;
+
+    // } else {
+    //   gameState.duck.velX = -100;
+    // }
     gameState.duck.setVelocityY(-100);
     // if ( gameState.duck.velX = -100 ){
     //   gameState.duck.flipX = true;
     // }
+
   }
 }
 
