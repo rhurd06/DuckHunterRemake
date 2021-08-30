@@ -38,7 +38,6 @@ class Game extends Phaser.Scene {
       delay: 100,
       callback: duckGen,
       callbackScope: this,
-
       loop: true
     })
 
@@ -50,41 +49,36 @@ class Game extends Phaser.Scene {
       yoyo: true
     })
 
-    // gameState.duck.anims.play('fly', true);
-
+    
     this.add.image(400, 400, 'grass');
-
-    // this.input.on('pointerdown', 'killDuck');
-
-    gameState.children = gameState.duck.getChildren()
-    for (let i = 0; i < gameState.children.length; i++) {
-      gameState.children[i].setInteractive();
-      gameState.children[i].events.onInputDown.add(destroySprite, this)
+    
+    // gameState.duck.anims.play('fly', true);
+      this.input.on('gameobjectdown', function(pointer, gameObject) {
+        gameObject.destroy();
+        console.log('click', gameObject)
+      })
+      
+      gameState.duck.move = this.tweens.add({
+        targets: gameState.duck,
+        x: 100,
+        ease: 'Linear',
+        duration: 1800,
+        repeat: -1,
+        yoyo: true
+      })
     }
-
-    function destroySprite(sprite) {
-      sprite.destroy()
-    }
-    // gameState.duck.events.onInputDown.add(this.destroy());
-    // gameState.duck.events.onInputDown.add(Phaser.Sprite.destroy(), this);
-
-    gameState.duck.move = this.tweens.add({
-      targets: gameState.duck,
-      x: 100,
-      ease: 'Linear',
-      duration: 1800,
-      repeat: -1,
-      yoyo: true
-    })
-  }
-
-  update() {
-    // if (gameState.duck.xCoord < 400) {
-    //   gameState.duck.velX = 100;
-
-    // } else {
-    //   gameState.duck.velX = -100;
-    // }
+    
+    update() {
+      gameState.children = gameState.duck.getChildren()
+      for (let i = 0; i < gameState.children.length; i++) {
+        gameState.children[i].setInteractive();
+      }
+      // if (gameState.duck.xCoord < 400) {
+        //   gameState.duck.velX = 100;
+        
+        // } else {
+          //   gameState.duck.velX = -100;
+          // }
     gameState.duck.setVelocityY(-100);
     // if ( gameState.duck.velX = -100 ){
     //   gameState.duck.flipX = true;
