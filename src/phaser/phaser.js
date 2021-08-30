@@ -12,8 +12,8 @@ class Game extends Phaser.Scene {
   preload() {
     this.load.image('sky', 'assets/sky2.jpeg');
     this.load.image('grass', 'assets/grassbg.png');
-    this.load.spritesheet('duck', 'assets/duckspritesheet.png',
-      { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('duck', 'assets/duckspritesheet2.png',
+      { frameWidth: 128, frameHeight: 128 });
   }
 
   create() {
@@ -28,7 +28,8 @@ class Game extends Phaser.Scene {
     function duckGen() {
       gameState.duck.xCoord = Math.random() * 800;
       gameState.duck.create(gameState.duck.xCoord, 400, 'duck');
-      if (gameState.duck.xCoord < 400) {
+      gameState.duck.anims
+        if(gameState.duck.xCoord < 400) {
         gameState.duck.velX = 100;
 
       } else {
@@ -43,20 +44,13 @@ class Game extends Phaser.Scene {
       loop: true
     })
 
-    this.anims.create({
-      key: 'fly',
-      frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-      yoyo: true
-    })
+
 
 
     this.add.image(400, 400, 'grass');
 
     gameState.scoreText = this.add.text(350, 550, "Score: 0", { fontSize: '25px', fill: '#ffffff' });
 
-    // gameState.duck.anims.play('fly', true);
     this.input.on('gameobjectdown', function (pointer, gameObject) {
       gameObject.destroy();
       gameState.score += 1;
@@ -73,13 +67,24 @@ class Game extends Phaser.Scene {
     //   repeat: -1,
     //   yoyo: true
     // })
+    this.anims.create({
+      key: 'fly',
+      frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1,
+      yoyo: true
+    })
   }
 
   update() {
+
     gameState.children = gameState.duck.getChildren()
+
     for (let i = 0; i < gameState.children.length; i++) {
       gameState.children[i].setInteractive();
     }
+
+    // gameState.duck.anims.play('fly', true);
     // if (gameState.duck.xCoord < 400) {
     //   gameState.duck.velX = 100;
 
