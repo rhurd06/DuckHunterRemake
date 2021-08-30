@@ -18,11 +18,18 @@ class Game extends Phaser.Scene {
     this.add.image(500, 350, 'sky');
     // gameState.duck = this.add.sprite(100, 100, 'duck').setScale(3);
     
-    gameState.duck = this.physics.add.group();
+    gameState.duck = this.physics.add.group({
+      key: 'duck'
+    });
 
     function duckGen() {
-      const xCoord = Math.random() * 800;
-      gameState.duck.create(xCoord, 400, 'duck');
+      gameState.duck.xCoord = Math.random() * 800;
+      gameState.duck.create(gameState.duck.xCoord, 400, 'duck');
+      if (gameState.duck.xCoord < 400) {
+        gameState.duck.velX = 100;
+      } else {
+        gameState.duck.velX = -100;
+      }
     }
 
     const duckGenLoop = this.time.addEvent({
@@ -54,7 +61,7 @@ class Game extends Phaser.Scene {
   }
   
   update() {
-    // gameState.duck.anims.play('fly', true);
+    gameState.duck.setVelocityY(-100);
   }
 }
 
