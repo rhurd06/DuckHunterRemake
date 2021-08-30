@@ -3,7 +3,8 @@ import Phaser from "phaser";
 const gameState = {
   score: 0,
   max: 3, 
-  onScreen: 0
+  onScreen: 0,
+  missedDucks: 5,
 };
 class Game extends Phaser.Scene {
   constructor() {
@@ -52,41 +53,49 @@ class Game extends Phaser.Scene {
 
     this.add.image(400, 400, 'grass');
 
-    gameState.scoreText = this.add.text(350, 550, "Score: 0", { fontSize: '25px', fill: '#ffffff' });
+    gameState.scoreText = this.add.text(350, 550, "Score: 0, Health: 5", { fontSize: '25px', fill: '#ffffff' });
 
     this.input.on('gameobjectdown', function (pointer, gameObject) {
       gameObject.destroy();
       gameState.score += 1;
-      gameState.scoreText.setText(`Score: ${gameState.score}`);
+      gameState.scoreText.setText(`Score: ${gameState.score}, Health: ${gameState.missedDucks}`);
       console.log('click', gameObject)
       gameState.onScreen -= 1;
     })
-
-
+    
+    
     // gameState.duck.move = this.tweens.add({
-    //   targets: gameState.duck,
-    //   x: 100,
-    //   ease: 'Linear',
-    //   duration: 1800,
-    //   repeat: -1,
-    //   yoyo: true
-    // })
-    this.anims.create({
-      key: 'fly',
-      frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-      yoyo: true
-    })
-  }
-
-  update() {
-
-    gameState.children = gameState.duck.getChildren()
-
-    for (let i = 0; i < gameState.children.length; i++) {
-      gameState.children[i].setInteractive();
+      //   targets: gameState.duck,
+      //   x: 100,
+      //   ease: 'Linear',
+      //   duration: 1800,
+      //   repeat: -1,
+      //   yoyo: true
+      // })
+      this.anims.create({
+        key: 'fly',
+        frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1,
+        yoyo: true
+      })
     }
+    
+    update() {
+      
+      gameState.children = gameState.duck.getChildren()
+      
+      for (let i = 0; i < gameState.children.length; i++) {
+        gameState.children[i].setInteractive();
+        if (gameState.children[i].y < -128) {
+          console.log('hello');
+          gameState.children[i].destroy();
+          gameState.missedDucks -= 1;
+          gameState.onScreen -=1;
+          gameState.scoreText.setText(`Score: ${gameState.score}, Health: ${gameState.missedDucks}`);
+        }
+    }
+
 
     // gameState.duck.anims.play('fly', true);
     // if (gameState.duck.xCoord < 400) {
