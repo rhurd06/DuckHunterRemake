@@ -1,7 +1,9 @@
 import Phaser from "phaser";
 
 const gameState = {
-  score: 0
+  score: 0,
+  max: 3, 
+  onScreen: 0
 };
 class Game extends Phaser.Scene {
   constructor() {
@@ -27,13 +29,14 @@ class Game extends Phaser.Scene {
 
     function duckGen() {
       gameState.duck.xCoord = Math.random() * 800;
-      gameState.duck.create(gameState.duck.xCoord, 400, 'duck');
-      gameState.duck.anims
-        if(gameState.duck.xCoord < 400) {
-        gameState.duck.velX = 100;
-
-      } else {
-        gameState.duck.velX = -100;
+      if (gameState.onScreen < gameState.max) {
+        gameState.duck.create(gameState.duck.xCoord, 400, 'duck');
+          if(gameState.duck.xCoord < 400) {
+          gameState.duck.velX = 100;
+        } else {
+          gameState.duck.velX = -100;
+        }
+        gameState.onScreen += 1;
       }
     }
 
@@ -56,6 +59,7 @@ class Game extends Phaser.Scene {
       gameState.score += 1;
       gameState.scoreText.setText(`Score: ${gameState.score}`);
       console.log('click', gameObject)
+      gameState.onScreen -= 1;
     })
 
 
