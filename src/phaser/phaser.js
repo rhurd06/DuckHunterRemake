@@ -10,16 +10,17 @@ class Game extends Phaser.Scene {
   preload() {
     this.load.image('sky', 'assets/sky2.jpeg');
     this.load.image('grass', 'assets/grassbg.png');
-    this.load.spritesheet('duck', 'assets/duckspritesheet.png', 
+    this.load.spritesheet('duck', 'assets/duckspritesheet.png',
       { frameWidth: 32, frameHeight: 32 });
   }
 
   create() {
     this.add.image(500, 350, 'sky');
-    // gameState.duck = this.add.sprite(100, 100, 'duck').setScale(3);
-    
+    // gameState.duck = this.add.sprite(Math.random() * 800, 'duck').setScale(3);
+
     gameState.duck = this.physics.add.group({
-      key: 'duck'
+      key: 'duck',
+      classType: Phaser.GameObjects.Sprite,
     });
 
     function duckGen() {
@@ -27,29 +28,46 @@ class Game extends Phaser.Scene {
       gameState.duck.create(gameState.duck.xCoord, 400, 'duck');
       if (gameState.duck.xCoord < 400) {
         gameState.duck.velX = 100;
+
       } else {
         gameState.duck.velX = -100;
       }
     }
 
     const duckGenLoop = this.time.addEvent({
-      delay: 100, 
+      delay: 100,
       callback: duckGen,
       callbackScope: this,
 
       loop: true
-    }) 
+    })
 
     this.anims.create({
       key: 'fly',
-      frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }), 
-      frameRate: 10, 
+      frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 3 }),
+      frameRate: 10,
       repeat: -1,
       yoyo: true
     })
-    
+
+    // gameState.duck.anims.play('fly', true);
+
     this.add.image(400, 400, 'grass');
-    
+
+    // this.input.on('pointerdown', 'killDuck');
+
+    gameState.children = gameState.duck.getChildren()
+    for (let i = 0; i < gameState.children.length; i++) {
+      gameState.children[i].setInteractive();
+      gameState.children[i].events.onInputDown.add(destroySprite, this)
+    }
+
+    function destroySprite(sprite) {
+      sprite.destroy()
+    }
+    // gameState.duck.events.onInputDown.add(this.destroy());
+    // gameState.duck.events.onInputDown.add(Phaser.Sprite.destroy(), this);
+
     gameState.duck.move = this.tweens.add({
       targets: gameState.duck,
       x: 100,
@@ -59,9 +77,18 @@ class Game extends Phaser.Scene {
       yoyo: true
     })
   }
-  
+
   update() {
+    // if (gameState.duck.xCoord < 400) {
+    //   gameState.duck.velX = 100;
+
+    // } else {
+    //   gameState.duck.velX = -100;
+    // }
     gameState.duck.setVelocityY(-100);
+    // if ( gameState.duck.velX = -100 ){
+    //   gameState.duck.flipX = true;
+    // }
   }
 }
 
@@ -78,34 +105,12 @@ var config = {
       gravity: { y: 0 },
       enableBody: true,
     }
-    
+
   }
-  // scene: {
-  //   preload,
-  //   create
-  // }
 };
 
 
 
 const game = new Phaser.Game(config);
-
-
-// function preload() {
-//   this.load.image("logo", logo);
-// }
-
-// function create() {
-//   const logo = this.add.image(400, 150, "logo");
-
-//   this.tweens.add({
-//     targets: logo,
-//     y: 450,
-//     duration: 2000,
-//     ease: "Power2",
-//     yoyo: true,
-//     loop: -1
-//   });
-// }
 
 export { game };
