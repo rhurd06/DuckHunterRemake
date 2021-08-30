@@ -100,6 +100,7 @@ class Game extends Phaser.Scene {
           gameState.children[i].x += 2;
         } else if (gameState.children[i].direction === 'flyLeft') {
           gameState.children[i].x -= 2;
+          gameState.children[i].flipX = true;
         } 
         if (gameState.children[i].y < -128 || gameState.children[i].x > 928 || gameState.children.x < -128) {
           console.log('hello');
