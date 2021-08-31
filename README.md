@@ -16,6 +16,7 @@ We are recreating a childhood favorite game: Duck Hunt. The most basic concept i
 
 1. Fork or clone the repository and open in your favorite code editor; we used VS Code
 1. Open a terminal window (making sure you're in the DuckHunterRemake file) and run npm install
+1. To view the current code in action, run npm start in the terminal
 1. Begin adding your own personal touches and features
 
 
@@ -40,10 +41,11 @@ Here's the link to our game:
 
 ## Technologies Used:
 - HTML
+- JavaScript
 - CSS
 - Node.js
 - Express
-- Phaser
+- Phaser 3
 
 ## Acknowledgements
 We'd like to thank Mintbean for providing this opportunity through their Hiring Hackathon and challenging us to create a game. We'd also like to thank our friends and family for their continuous support and encouragement. I personally would like to thank my little guy Lamar for being my inspiration to create a game easy enough for a 4 year old to play!
