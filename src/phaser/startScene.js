@@ -7,6 +7,7 @@ export default class StartScene extends Phaser.Scene {
   preload(){
     this.load.image('Robyn', 'assets/Robyn.jpg');
     this.load.image('John', 'assets/John.jpeg');
+    this.load.image('linkedin', 'https://raw.githubusercontent.com/devicons/devicon/master/icons/linkedin/linkedin-original.svg');
 
   }
   create(){
@@ -25,6 +26,11 @@ export default class StartScene extends Phaser.Scene {
     this.add.text(180, 475, 'Robyn is a retail manager turned Full Stack Developer who loves to tackle challenges and learn new programs', style1)
     this.add.image(520, 400, 'John').setScale(.3);
     this.add.text(450, 475, 'John is a Full Stack Developer who is always looking to learn something new', style1)
-
+    let johnsLinkedIn = this.add.image(600, 400, 'linkedin').setScale(.25)
+    // johnsLinkedIn.on('pointerup', externalURL, this);
+    // function externalURL() {
+    //   let link = 'https://www.linkedin.com/in/johnturner4004'
+    //   let s = window.open
+    }
   }
 }
