@@ -13,6 +13,7 @@ We are recreating a childhood favorite game: Duck Hunt. The most basic concept i
 
 1. Fork or clone the repository and open in your favorite code editor; we used VS Code
 1. Open a terminal window (making sure you're in the DuckHunterRemake file) and run npm install
+1. Begin adding your own personal touches and features
 
 
 ## Deployment
@@ -26,7 +27,12 @@ We deployed the game to Heroku using our GitHub repository. This is how we deplo
 1. Type in the name of the GitHub Repo
 1. Click 'Enable automatic deploys'
 1. Click 'Deploy Branch'
+<br />
 Then you should be able to open the app and start playing or sharing the link.
+<br />
+Here's the link to our game:
+<br />
+[Duck Hunter Remake](https://duckhunterremake.herokuapp.com/)
 
 
 ## Technologies Used:
