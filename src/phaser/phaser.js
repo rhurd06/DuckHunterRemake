@@ -6,6 +6,7 @@ const gameState = {
   max: 3, 
   onScreen: 0,
   missedDucks: 5,
+  gamePlay: true,
 };
 class Game extends Phaser.Scene {
   constructor() {
@@ -89,20 +90,24 @@ class Game extends Phaser.Scene {
         } else if (gameState.children[i].direction === 'flyLeft') {
           gameState.children[i].x -= 2;
           gameState.children[i].flipX = true;
-        } 
+        }
         if (gameState.children[i].y < -128 || gameState.children[i].x > 928 || gameState.children.x < -128) {
           console.log('hello');
           gameState.children[i].destroy();
           gameState.missedDucks -= 1;
           gameState.onScreen -=1;
             if(gameState.missedDucks === 0) {
-              this.scene.pause();
+              gameState.gamePlay = false;
+              this.add.text(300, 200, 'Game Over \n Click to play again', {fontSize: '40px', fontStyle: 'bold', fontFamily: 'Arial', align: 'center', fill: '#000000'})
+              this.physics.pause();
               gameState.active = false;
               this.anims.pauseAll();
-              this.add.text(300, 200, 'Game Over \n Click to play again', {fontSize: '40px', fontStyle: 'bold', fontFamily: 'Arial', align: 'center', fill: '#000000'})
-              this.input.on('pointerup', () => {
+              this.input.on('pointerdown', () => {
                 this.anims.resumeAll();
-                this.scene.start('scene');
+                this.scene.restart();
+                gameState.score = 0;
+                gameState.missedDucks = 5;
+                gameState.gamePlay = true;
               })
             }
           gameState.scoreText.setText(`Score: ${gameState.score}, Missed Ducks: ${gameState.missedDucks}`);
