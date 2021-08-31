@@ -3,7 +3,7 @@
 ## Description
 Duration: 1 week sprint
 
-We are recreating a childhood favorite game: Duck Hunter. The most basic concept is to 'shoot' the birds as they fly up. Traditionally this was a video game where you would have a toy gun to shoot them, but in our version you'll use the mouse. The object is to get all the birds before they fly away.
+We are recreating a childhood favorite game: Duck Hunt. The most basic concept is to 'shoot' the birds as they fly up. Traditionally this was a video game where you would have a toy gun to shoot them, but in our version you'll use the mouse. The object is to get all the birds before they fly away.
 
 ## Installation
 
