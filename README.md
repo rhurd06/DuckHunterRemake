@@ -7,7 +7,7 @@ We are recreating a childhood favorite game: Duck Hunt. The most basic concept i
 
 ## Watch Our Demo Video
 
-![](public/assets/demoVideo.gif)
+![preview](public/assets/demoVideo.gif)
 
 ## Installation
 
