@@ -31,7 +31,7 @@ We deployed the game to Heroku using our GitHub repository. This is how we deplo
 Then you should be able to open the app and start playing or sharing the link.
 <br />
 Here's the link to our game:
-<br />
+
 [Duck Hunter Remake](https://duckhunterremake.herokuapp.com/)
 
 
