@@ -45,7 +45,7 @@ class Game extends Phaser.Scene {
       }
     }
 
-    const duckGenLoop = this.time.addEvent({
+    gameState.duckGenLoop = this.time.addEvent({
       delay: 100,
       callback: duckGen,
       callbackScope: this,
@@ -101,22 +101,25 @@ class Game extends Phaser.Scene {
         }
         if (gameState.children[i].y < -128 || gameState.children[i].x > 928 || gameState.children.x < -128) {
           gameState.children[i].destroy();
-          gameState.missedDucks -= 1;
+          if (gameState.missedDucks > 0) {
+            gameState.missedDucks -= 1;
+          }
           gameState.onScreen -=1;
-            if(gameState.missedDucks === 0) {
-              gameState.gamePlay = false;
-              this.add.text(300, 200, 'Game Over \n Click to play again', {fontSize: '40px', fontStyle: 'bold', fontFamily: 'Arial', align: 'center', fill: '#000000'})
-              this.physics.pause();
-              gameState.active = false;
-              this.anims.pauseAll();
-              this.input.on('pointerdown', () => {
-                this.anims.resumeAll();
-                this.scene.restart();
-                gameState.score = 0;
-                gameState.missedDucks = 5;
-                gameState.gamePlay = true;
-              })
-            }
+          if(gameState.missedDucks === 0) {
+            gameState.duckGenLoop.destroy();
+            gameState.gamePlay = false;
+            this.add.text(300, 200, 'Game Over \n Click to play again', {fontSize: '40px', fontStyle: 'bold', fontFamily: 'Arial', align: 'center', fill: '#000000'})
+            // this.physics.pause();
+            gameState.active = false;
+            // this.anims.pauseAll();
+            this.input.on('pointerdown', () => {
+              this.anims.resumeAll();
+              this.scene.restart();
+              gameState.score = 0;
+              gameState.missedDucks = 5;
+              gameState.gamePlay = true;
+            })
+          }
           gameState.scoreText.setText(`Score: ${gameState.score}, Missed Ducks: ${gameState.missedDucks}`);
 
         }
